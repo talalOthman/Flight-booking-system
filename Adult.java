@@ -5,6 +5,5 @@ public class Adult extends Users {
     }
 
     
-
     
 }
