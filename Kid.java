@@ -2,8 +2,8 @@ public class Kid extends Users{
 
     private String parentName;
 
-    public Kid(String name, int passportNum, String parentName){
-        super(name, passportNum);
+    public Kid(String name, int passportNum, String parentName, int age){
+        super(name, passportNum, age);
         this.parentName = parentName;
     }
 

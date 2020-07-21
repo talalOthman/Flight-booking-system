@@ -1,16 +1,57 @@
 import javax.swing.*;
+
+import javax.swing.JOptionPane;
+
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.lang.Exception;
 
 public class Main extends JFrame{
 
-    JLabel title, choice;
-    JButton b1, b2, b3, b4, b5;
-    JTextField choiceText;
+    //All the pages
+    static JPanel menuPanel, addFlightPanel, addUserPanel, displayFlightPanel, displayUserPanel;
+    static int flightCount = 0;
 
-    GridBagConstraints gbc = new GridBagConstraints();
 
-    public Main(){
-        setLayout(new GridBagLayout());
+
+    public static void main(String [] args){
+        
+        //The main frame
+        JFrame frame = new JFrame();
+
+        
+        
+        menuPanel = new JPanel();
+        addUserPanel = new JPanel();
+        addFlightPanel = new JPanel();
+        displayFlightPanel = new JPanel();
+        displayUserPanel = new JPanel();
+
+
+        //mainPanel components
+        JLabel title;
+        JButton b1, b2, b3, b4, b5;
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+
+
+        
+
+        frame.setTitle("Flight Booking System");
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 250);
+        frame.setVisible(true);
+
+//=========================================================================================
+        //Main Page
+        
+        frame.add(menuPanel);
+
+
+
+        menuPanel.setLayout(new GridBagLayout());
         
         gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -18,54 +59,370 @@ public class Main extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        add(title, gbc);
+        menuPanel.add(title, gbc);
 
+        
+        
+        
+        
+        
         b1 = new JButton("Add Flight");
+        b1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(false);
+                frame.add(addFlightPanel);
+                addFlightPanel.setVisible(true);
+            }
+        });
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 1; 
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(b1, gbc);
+        menuPanel.add(b1, gbc);
 
+       
+       
+       
+       
+       
+       
         b2 = new JButton("Add User");
+        b2.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action){
+                menuPanel.setVisible(false);
+                frame.add(addUserPanel);
+                addUserPanel.setVisible(true);
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(b2, gbc);
+        menuPanel.add(b2, gbc);
 
+        
+        
+        
+        
+        
+        
         b3 = new JButton("Display Flights");
+        b3.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action){
+                menuPanel.setVisible(false);
+                frame.add(displayFlightPanel);
+                displayFlightPanel.setVisible(true);
+            }
+        });
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(b3, gbc);
+        menuPanel.add(b3, gbc);
 
+        
+        
+        
+        
+        
         b4 = new JButton("Display Users");
+        b4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action){
+                menuPanel.setVisible(false);
+                frame.add(displayUserPanel);
+                displayUserPanel.setVisible(true);
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(b4, gbc);
+        menuPanel.add(b4, gbc);
 
+        
+        
+        
+        
+        
         b5 = new JButton("Exit");
+        b5.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+				System.exit(0);
+			}
+        });
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(b5, gbc);
+        menuPanel.add(b5, gbc);
+        //End of main page
+
+
+
+//===========================================================================================
+
+
+        
+        //Add Users Page
+
+        //add user page component
+        JLabel userNameL, passportNumL, parentNameL, addUserTitle;
+        JTextField userNametxt, passportNumtxt, parentNametxt;
+        JButton backToMenuBTN, submitUserBTN;
+        
+
+        addUserPanel = new JPanel();
+        
+        addUserPanel.setVisible(false);
+
+
+
+        addUserPanel.setLayout(new GridBagLayout());
+        
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        
+
         
         
-    }
+        
+        
+        
+        userNameL = new JLabel("Name");
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1; 
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(userNameL, gbc);
+
+       
+       
+       
+       
+       
+       
+        userNametxt = new JTextField(10);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(userNametxt, gbc);
+
+        
+        
+        
+        
+        
+        
+        passportNumL = new JLabel("Passport");
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2; 
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(passportNumL, gbc);
+
+       
+       
+       
+       
+       
+       
+        passportNumtxt = new JTextField(10);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(passportNumtxt, gbc);
+
+        
+        
+        submitUserBTN = new JButton("Submit");
+        submitUserBTN.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                
+			}
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(submitUserBTN, gbc);
+
+        
+        
+        backToMenuBTN = new JButton("Back to menu");
+        backToMenuBTN.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(true);
+                addUserPanel.setVisible(false);
+			}
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addUserPanel.add(backToMenuBTN, gbc);
 
 
-    public static void main(String [] args){
-        Main frame = new Main();
 
-        frame.setTitle("Flight Booking System");
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 250);
-        frame.setVisible(true);
+        //===========================================================================================
+
+
+        
+        //Add Flight Page
+
+        //add flight page component
+        JLabel fromL, toL, priceL, priceIndicator, addFlightTitle;
+        JTextField fromtxt, totxt, pricetxt;
+        JButton submitFlightBTN;
+        Flight flightList[] = new Flight[10];
+        
+        
+
+        addFlightPanel = new JPanel();
+        
+        addFlightPanel.setVisible(false);
+
+
+
+        addFlightPanel.setLayout(new GridBagLayout());
+        
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+       
+
+        
+        
+        
+        
+        
+        fromL = new JLabel("Flying from");
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1; 
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(fromL, gbc);
+
+       
+       
+       
+       
+       
+       
+        fromtxt = new JTextField(10);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(fromtxt, gbc);
+
+
+
+        
+        
+        
+        
+        
+        
+        toL = new JLabel("Flying to");
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2; 
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(toL, gbc);
+
+       
+       
+       
+       
+        totxt = new JTextField(10);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(totxt, gbc);
+
+
+
+
+        priceL = new JLabel("Price");
+        
+        gbc.gridx = 0;
+        gbc.gridy = 3; 
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(priceL, gbc);
+
+       
+       
+       
+       
+        pricetxt = new JTextField(5);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(pricetxt, gbc);
+
+
+       
+
+        
+        
+        submitFlightBTN = new JButton("Submit Flight");
+        submitFlightBTN.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                try{
+                    if(fromtxt.getText().equals("") || totxt.getText().equals("") || pricetxt.getText().equals("")){
+                        throw new Exception();
+                    }
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(addFlightPanel, "Can't leave any field empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                flightList[flightCount] = new Flight(fromtxt.getText(), totxt.getText(), Integer.parseInt(pricetxt.getText()));
+                flightCount++;
+
+                addFlightPanel.setVisible(false);
+                menuPanel.setVisible(true);
+                JOptionPane.showMessageDialog(menuPanel, "Flight submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                fromtxt.setText(null);
+                totxt.setText(null);
+                pricetxt.setText(null);
+			}
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(submitFlightBTN, gbc);
+
+        
+        
+        backToMenuBTN = new JButton("Back to menu");
+        backToMenuBTN.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(true);
+                addFlightPanel.setVisible(false);
+			}
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        addFlightPanel.add(backToMenuBTN, gbc);
+
+
+        
+
+
+
+        
+        
     }
 }

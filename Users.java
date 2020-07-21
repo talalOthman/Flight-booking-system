@@ -1,14 +1,16 @@
 public abstract class Users {
     protected String name;
-    protected int passportNum;
+    protected int passportNum, age;
 
     public Users(){
         this.name = "";
         this.passportNum = 0;
+        this.age = 0;
     }
-    public Users(String name, int passportNum) {
+    public Users(String name, int passportNum, int age) {
         this.name = name;
         this.passportNum = passportNum;
+        this.age = age;
     }
 
     public String getName(){
