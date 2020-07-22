@@ -1,7 +1,7 @@
 
 
 public class Flight {
-    private FlightTicket ticket;
+    protected FlightTicket ticket;
     private int adultsNum, kidsNum, userCount;
     private Users [] userList;
 
@@ -31,11 +31,14 @@ public class Flight {
 
     public String displayInfo(){
         String str = "";
-
         str += "Fly from: "+ ticket.getFromDestination();
         str += "\nFly to: "+ ticket.getToDestination();
         str += "\nPrice: "+ ticket.getPrice();
 
         return str;
+    }
+
+    public String getFrom(){
+        return ticket.getFromDestination();
     }
 }
