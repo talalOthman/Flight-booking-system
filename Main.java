@@ -7,20 +7,57 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.lang.Exception;
 
-public class Main extends JFrame{
+public class Main{
 
     //All the pages
     static JPanel menuPanel, addFlightPanel, addUserPanel, displayFlightPanel, displayUserPanel;
     static int flightCount = 0;
 
 
+    //add flight page component
+    JLabel fromL, toL, priceL, priceIndicator, addFlightTitle;
+    JTextField fromtxt, totxt, pricetxt;
+    JButton submitFlightBTN;
+    Flight flightList[];
 
-    public static void main(String [] args){
-        
+
+     //mainPanel components
+     JLabel title;
+     JButton b1, b2, b3, b4, b5;
+
+
+     //add user page component
+     JLabel userNameL, passportNumL, parentNameL, addUserTitle;
+     JTextField userNametxt, passportNumtxt, parentNametxt;
+     JButton backToMenuBTN, submitUserBTN;
+
+
+     //display flight page component
+     JLabel numOfFlightsL;
+     JTextPane FlightInfo;
+     String str = "";
+
+
+     
+     GridBagConstraints gbc;
+    
+
+
+
+     public Main(){
+         setup();
+     }
+
+
+    public void setup(){
+
         //The main frame
         JFrame frame = new JFrame();
 
-        
+
+
+
+        flightList = new Flight[10];
         
         menuPanel = new JPanel();
         addUserPanel = new JPanel();
@@ -29,11 +66,10 @@ public class Main extends JFrame{
         displayUserPanel = new JPanel();
 
 
-        //mainPanel components
-        JLabel title;
-        JButton b1, b2, b3, b4, b5;
-        
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
+
+
+       
 
 
         
@@ -165,10 +201,7 @@ public class Main extends JFrame{
         
         //Add Users Page
 
-        //add user page component
-        JLabel userNameL, passportNumL, parentNameL, addUserTitle;
-        JTextField userNametxt, passportNumtxt, parentNametxt;
-        JButton backToMenuBTN, submitUserBTN;
+        
         
 
         addUserPanel = new JPanel();
@@ -273,11 +306,7 @@ public class Main extends JFrame{
         
         //Add Flight Page
 
-        //add flight page component
-        JLabel fromL, toL, priceL, priceIndicator, addFlightTitle;
-        JTextField fromtxt, totxt, pricetxt;
-        JButton submitFlightBTN;
-        Flight flightList[] = new Flight[10];
+        
         
         
 
@@ -387,6 +416,8 @@ public class Main extends JFrame{
                 flightList[flightCount] = new Flight(fromtxt.getText(), totxt.getText(), Integer.parseInt(pricetxt.getText()));
                 flightCount++;
 
+                
+
                 addFlightPanel.setVisible(false);
                 menuPanel.setVisible(true);
                 JOptionPane.showMessageDialog(menuPanel, "Flight submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -422,7 +453,87 @@ public class Main extends JFrame{
 
 
 
+ //===========================================================================================
+
+
         
+        //Display Flights Page
+
+        
+
+         FlightInfo = new JTextPane();
+		FlightInfo.setEditable(false);
+		FlightInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
+		FlightInfo.setBounds(0, 0, 459, 95);
+		
+        
+        
+        
+        
+
+        displayFlightPanel = new JPanel();
+        
+        displayFlightPanel.setVisible(false);
+
+
+
+        displayFlightPanel.setLayout(new GridBagLayout());
+        
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+
+        
+
+        if(flightCount > 0){
+
+        for(int i=0; i< flightCount; i++){
+            str += flightList[i].displayInfo() + "\n";
+        }
+
+
+        FlightInfo.setText(str);
+        
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        displayFlightPanel.add(FlightInfo);
+    }
+
+        
+        backToMenuBTN = new JButton("Back to menu");
+        backToMenuBTN.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(true);
+                displayFlightPanel.setVisible(false);
+			}
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        displayFlightPanel.add(backToMenuBTN, gbc);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void main(String [] args){
+        
+        new Main();
         
     }
+
+    
 }

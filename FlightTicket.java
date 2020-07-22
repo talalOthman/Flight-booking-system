@@ -18,8 +18,20 @@ public class FlightTicket{
         this.price = price;
     }
 
+    public String getFromDestination(){
+        return fromDestination;
+    }
+
+    public String getToDestination(){
+        return  toDestination;
+    }
+
 
     public int getTicket(){
         return this.ticketCode;
+    }
+
+    public double getPrice(){
+        return price;
     }
 }
