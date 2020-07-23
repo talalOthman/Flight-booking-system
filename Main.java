@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.lang.Exception;
+import java.util.*; 
 
 public class Main implements ActionListener{
 
@@ -44,7 +45,7 @@ public class Main implements ActionListener{
 
      //choose flight page components
      JLabel chooseFlightTitle;
-     JRadioButton radioList[];
+     ArrayList<JRadioButton> radioList;
      ButtonGroup BTNgroup;
      JButton proceedBTN;
      Flight chosenFlight;
@@ -407,7 +408,7 @@ public class Main implements ActionListener{
         //=======================================================================================
         // choose Flight Page usage
 
-        radioList = new JRadioButton[10];
+        radioList = new ArrayList<JRadioButton>();
         chooseFlightPanel = new JPanel();
         chooseFlightPanel.setVisible(false);
 
@@ -543,7 +544,7 @@ public class Main implements ActionListener{
 //==============================================================================
     //ACTION LISTENER FOR ALL BUTTONS, ETC
     public void actionPerformed(ActionEvent e){
-         boolean bool = false;
+         
 
         
         
@@ -599,7 +600,7 @@ public class Main implements ActionListener{
 
 
                     list.addFlight(fromtxt.getText(), totxt.getText(), Integer.parseInt(pricetxt.getText()));
-
+                    radioList.add(new JRadioButton (fromtxt.getText(), false));
                     
                     
                     if(list.getCount() > 0){
@@ -607,16 +608,15 @@ public class Main implements ActionListener{
                         displayFlightPanel.add(FlightInfo);
                         displayFlightPanel.remove(emptyL);
 
-
+                        
                         for(int i=0; i<list.getCount(); i++){
-                            radioList[i] = new JRadioButton (list.getFlight(i).getFrom());
-                            radioList[i].setBounds(50, (startPos+=20), 200, 20);
-                            chooseFlightPanel.add(radioList[i]);
-                            BTNgroup.add(radioList[i]);
-                            radioList[i].setFocusable(false);
-
-
+                           
+                            radioList.get(i).setBounds(50, (startPos+=20), 200, 20);
                             
+                            chooseFlightPanel.add(radioList.get(i));
+                            BTNgroup.add(radioList.get(i));
+                            radioList.get(i).setFocusable(false);
+
 
                         }
 
@@ -640,28 +640,31 @@ public class Main implements ActionListener{
         }
 
         else if(e.getSource() == proceedBTN){
-           
+            int bool = 2;
 
             try{
                 
             for(int i=0; i<list.getCount(); i++){
                 
-                if(radioList[i].isSelected()){
-                    bool = true;
-                    System.out.println(list.getFlight(i).getFrom());
+                if(radioList.get(i).isSelected() == true){
+                    bool = 1;
+                    System.out.println(radioList.get(i).getText());
                     
+                    break;
+                }else{
+                    
+                    bool = 0;
                 }
             }
-            if(bool == false){
+            if(bool == 0){
                 throw new Exception();
             }
-            else{
+            else if(bool == 1){
                 addUserPanel.setVisible(true);
                 frame.add(addUserPanel);
                 chooseFlightPanel.setVisible(false);
                 BTNgroup.clearSelection();
 
-                
             }
         }
         catch(Exception exc2){
@@ -673,7 +676,7 @@ public class Main implements ActionListener{
 //==============================================================================
 
 
-
+ 
 
 
 
