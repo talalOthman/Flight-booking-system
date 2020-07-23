@@ -41,4 +41,5 @@ public class Flight {
     public String getFrom(){
         return ticket.getFromDestination();
     }
+
 }
