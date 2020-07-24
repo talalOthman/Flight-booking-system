@@ -29,6 +29,10 @@ public class Flight {
         userCount++;
     }
 
+    public Users getUser(int count){
+        return userList[count];
+    }
+
     public String displayInfo(){
         String str = "";
         str += "Fly from: "+ ticket.getFromDestination();
@@ -41,5 +45,6 @@ public class Flight {
     public String getFrom(){
         return ticket.getFromDestination();
     }
+    
 
 }

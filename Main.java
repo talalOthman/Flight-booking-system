@@ -13,7 +13,7 @@ public class Main implements ActionListener {
 
     // All the pages
     static JPanel menuPanel, addFlightPanel, addUserPanel, displayFlightPanel, displayUserPanel, chooseFlightPanel,
-            parentNamePanel;
+            parentNamePanel, chooseUserFlightPanel;
     static int flightCount = 0;
 
     // add flight page components
@@ -54,6 +54,15 @@ public class Main implements ActionListener {
     JTextField parentNametxt;
     JButton submitKidBTN;
     String parentName;
+
+    // choose user flight page components
+    JButton proceedToUserBTN;
+    JLabel chooseUserFlightTitle;
+    ArrayList<JRadioButton> radioList2;
+    ButtonGroup BTNgroup2;
+
+    // display users panel
+    JTextPane UserInfo;
 
     GridBagConstraints gbc;
 
@@ -275,7 +284,7 @@ public class Main implements ActionListener {
         // TextPane for add flight
 
         FlightInfo = new JTextPane();
-        FlightInfo.setEditable(true);
+        FlightInfo.setEditable(false);
         FlightInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -403,6 +412,59 @@ public class Main implements ActionListener {
         backToMenuBTN.setBounds(70, 180, 150, 25);
         parentNamePanel.add(backToMenuBTN);
 
+        // ===========================================================================================
+        // Choose user flight panel
+
+        chooseUserFlightPanel = new JPanel();
+        chooseUserFlightPanel.setVisible(false);
+        chooseUserFlightPanel.setLayout(null);
+        radioList2 = new ArrayList<JRadioButton>();
+        BTNgroup2 = new ButtonGroup();
+
+        chooseUserFlightTitle = new JLabel("Flights to choose from");
+        chooseUserFlightTitle.setBounds(74, 0, 200, 50);
+        chooseUserFlightPanel.add(chooseUserFlightTitle);
+
+        proceedToUserBTN = new JButton("Proceed");
+
+        proceedToUserBTN.setBounds(70, 150, 150, 25);
+        chooseUserFlightPanel.add(proceedToUserBTN);
+
+        backToMenuBTN = new JButton("Back to menu");
+        backToMenuBTN.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(true);
+                chooseUserFlightPanel.setVisible(false);
+            }
+        });
+
+        backToMenuBTN.setBounds(70, 180, 150, 25);
+        chooseUserFlightPanel.add(backToMenuBTN);
+
+        // =================================================================
+        // display users page
+
+        displayUserPanel = new JPanel();
+        displayUserPanel.setLayout(null);
+
+        UserInfo = new JTextPane();
+        UserInfo.setEditable(true);
+        UserInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
+        UserInfo.setBounds(0, 100, 100, 200);
+        UserInfo.setEditable(false);
+        displayUserPanel.add(UserInfo);
+
+        backToMenuBTN = new JButton("Back to menu");
+        backToMenuBTN.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent action) {
+                menuPanel.setVisible(true);
+                displayUserPanel.setVisible(false);
+            }
+        });
+
+        backToMenuBTN.setBounds(70, 180, 150, 25);
+        displayUserPanel.add(backToMenuBTN);
+
         // Adding all components with an actionlistener
         addFlightBTN.addActionListener(this);
         addUserBTN.addActionListener(this);
@@ -413,6 +475,7 @@ public class Main implements ActionListener {
         submitFlightBTN.addActionListener(this);
         proceedBTN.addActionListener(this);
         submitKidBTN.addActionListener(this);
+        proceedToUserBTN.addActionListener(this);
 
     }
 
@@ -440,8 +503,8 @@ public class Main implements ActionListener {
 
         else if (e.getSource() == displayUsersBTN) {
             menuPanel.setVisible(false);
-            frame.add(displayUserPanel);
-            displayUserPanel.setVisible(true);
+            frame.add(chooseUserFlightPanel);
+            chooseUserFlightPanel.setVisible(true);
         }
 
         else if (e.getSource() == exitBTN) {
@@ -464,9 +527,11 @@ public class Main implements ActionListener {
                      */
 
                     int startPos = 20;
+                    int startPos2 = 20;
 
                     list.addFlight(fromtxt.getText(), totxt.getText(), Integer.parseInt(pricetxt.getText()));
                     radioList.add(new JRadioButton(fromtxt.getText(), false));
+                    radioList2.add(new JRadioButton(fromtxt.getText(), false));
 
                     if (list.getCount() > 0) {
                         FlightInfo.setText(list.displayInfo());
@@ -476,10 +541,14 @@ public class Main implements ActionListener {
                         for (int i = 0; i < list.getCount(); i++) {
 
                             radioList.get(i).setBounds(50, (startPos += 20), 200, 20);
+                            radioList2.get(i).setBounds(50, (startPos2 += 20), 200, 20);
 
                             chooseFlightPanel.add(radioList.get(i));
+                            chooseUserFlightPanel.add(radioList2.get(i));
                             BTNgroup.add(radioList.get(i));
+                            BTNgroup2.add(radioList2.get(i));
                             radioList.get(i).setFocusable(false);
+                            radioList2.get(i).setFocusable(false);
 
                         }
 
@@ -513,7 +582,7 @@ public class Main implements ActionListener {
 
                     if (radioList.get(i).isSelected() == true) {
                         bool = 1;
-                        System.out.println(radioList.get(i).getText());
+
                         chosenFlightIndex = i;
 
                         break;
@@ -540,7 +609,6 @@ public class Main implements ActionListener {
         }
 
         else if (e.getSource() == submitUserBTN) {
-            
 
             try {
 
@@ -560,7 +628,6 @@ public class Main implements ActionListener {
                         frame.add(parentNamePanel);
                         addUserPanel.setVisible(false);
 
-                        
                     } else {
                         list.getFlight(chosenFlightIndex).addUser(new Adult(name, passportNum, age));
 
@@ -585,7 +652,7 @@ public class Main implements ActionListener {
 
         }
 
-        else if(e.getSource() == submitKidBTN){
+        else if (e.getSource() == submitKidBTN) {
 
             parentName = parentNametxt.getText();
             list.getFlight(chosenFlightIndex).addUser(new Kid(name, passportNum, parentName, age));
@@ -593,7 +660,51 @@ public class Main implements ActionListener {
             menuPanel.setVisible(true);
             parentNamePanel.setVisible(false);
             JOptionPane.showMessageDialog(menuPanel, "Flight successfully booked for kid user", "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        else if (e.getSource() == proceedToUserBTN) {
+
+            String str = "";
+            int bool2 = 2;
+
+            try {
+
+                for (int i = 0; i < list.getCount(); i++) {
+
+                    if (radioList2.get(i).isSelected() == true) {
+                        bool2 = 1;
+
+                        chosenFlightIndex = i;
+
+                        break;
+                    } else {
+                        bool2 = 0;
+                    }
+                }
+                if (bool2 == 0) {
+                    throw new Exception();
+                } else if (bool2 == 1) {
+                    
+                    chooseUserFlightPanel.setVisible(false);
+                    frame.add(displayUserPanel);
+                    displayUserPanel.setVisible(true);
+                    BTNgroup.clearSelection();
+
+                    for (int i = 0; i < list.getFlight(chosenFlightIndex).getUserCount(); i++) {
+                        str += list.getFlight(chosenFlightIndex).getUser(i).displayInfo() + "\n";
+                    }
+                    UserInfo.setText(str);
+
+                } else {
+                    JOptionPane.showMessageDialog(chooseFlightPanel, "No flight data to choose from", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception exc2) {
+                JOptionPane.showMessageDialog(chooseFlightPanel, "You must choose a flight", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
         }
 
     }

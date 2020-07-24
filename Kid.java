@@ -15,5 +15,14 @@ public class Kid extends Users{
         this.parentName = newParentName;
     }
 
+    public String displayInfo(){
+        String str = "";
+
+        str += name + "    " + age + "    " + parentName + "\n";
+
+
+        return str;
+    }
+
     
 }

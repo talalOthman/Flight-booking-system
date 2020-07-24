@@ -4,6 +4,14 @@ public class Adult extends Users {
         super(name, passportNum, age);
     }
 
+    public String displayInfo(){
+        String str = "";
+
+        str += name + "    " + age + "\n";
+
+        return str;
+    }
+
 
     
 }

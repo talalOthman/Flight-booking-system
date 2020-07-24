@@ -25,4 +25,6 @@ public abstract class Users {
     public void changePassportNum(int newPassportNum){
         this.passportNum = newPassportNum;
     }
+
+    public abstract String displayInfo();
 }
