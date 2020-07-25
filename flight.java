@@ -20,12 +20,32 @@ public class Flight {
         return ticket.getTicket();
     }
 
+    public double getPrice(int count){
+        double originalPrice = ticket.getPrice();
+        double discountedPrice = 0;
+
+        if(userList[count].getAge() <= 12 || userList[count].getAge() > 60){
+            discountedPrice = originalPrice * userList[count].discPrice();
+        }
+
+
+        return originalPrice - discountedPrice;
+
+    }
+
     public int getUserCount(){
         return userCount;
     }
 
     public void addUser(Users user){
         userList[userCount] = user;
+        if(userList[userCount].getAge() <= 12){
+            this.kidsNum++;
+        }
+        else{
+            this.adultsNum++;
+        }
+
         userCount++;
     }
 
@@ -41,6 +61,8 @@ public class Flight {
 
         return str;
     }
+
+   
 
     public String getFrom(){
         return ticket.getFromDestination();

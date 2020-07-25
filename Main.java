@@ -280,17 +280,10 @@ public class Main implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         addFlightPanel.add(pricetxt, gbc);
 
-        // ========================================================================================
-        // TextPane for add flight
+        
 
-        FlightInfo = new JTextPane();
-        FlightInfo.setEditable(false);
-        FlightInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        // =======================================================================================
+        
+        
 
         // =======================================================================================
         // choose Flight Page usage
@@ -331,17 +324,19 @@ public class Main implements ActionListener {
 
         displayFlightPanel.setVisible(false);
 
-        displayFlightPanel.setLayout(new GridBagLayout());
+        displayFlightPanel.setLayout(null);
 
-        gbc.insets = new Insets(5, 5, 5, 5);
+        FlightInfo = new JTextPane();
+        FlightInfo.setEditable(false);
+        FlightInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
+        FlightInfo.setBounds(20, 2, 244, 175);
+
+        
 
         // label when there's no flight data to display
         emptyL = new JLabel("No flight data!");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        displayFlightPanel.add(emptyL, gbc);
+        emptyL.setBounds(100, 75, 130, 23);
+        displayFlightPanel.add(emptyL);
 
         backToMenuBTN = new JButton("Back to menu");
         backToMenuBTN.addActionListener(new ActionListener() {
@@ -350,11 +345,8 @@ public class Main implements ActionListener {
                 displayFlightPanel.setVisible(false);
             }
         });
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        displayFlightPanel.add(backToMenuBTN, gbc);
+        backToMenuBTN.setBounds(70, 180, 150, 25);
+        displayFlightPanel.add(backToMenuBTN);
 
         // ===========================================================================================
         // Choose Flights Page
@@ -450,7 +442,7 @@ public class Main implements ActionListener {
         UserInfo = new JTextPane();
         UserInfo.setEditable(true);
         UserInfo.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
-        UserInfo.setBounds(0, 100, 100, 200);
+        UserInfo.setBounds(20, 2, 244, 175);
         UserInfo.setEditable(false);
         displayUserPanel.add(UserInfo);
 
@@ -530,8 +522,8 @@ public class Main implements ActionListener {
                     int startPos2 = 20;
 
                     list.addFlight(fromtxt.getText(), totxt.getText(), Integer.parseInt(pricetxt.getText()));
-                    radioList.add(new JRadioButton(fromtxt.getText(), false));
-                    radioList2.add(new JRadioButton(fromtxt.getText(), false));
+                    radioList.add(new JRadioButton(fromtxt.getText() + "  -->  " + totxt.getText(), false));
+                    radioList2.add(new JRadioButton(fromtxt.getText() + "  --> " + totxt.getText(), false));
 
                     if (list.getCount() > 0) {
                         FlightInfo.setText(list.displayInfo());
@@ -686,21 +678,33 @@ public class Main implements ActionListener {
                     throw new Exception();
                 } else if (bool2 == 1) {
                     
+                    if(list.getFlight(chosenFlightIndex).getUserCount() == 0){
+                        BTNgroup2.clearSelection();
+                        throw new NullPointerException();
+                    }
                     chooseUserFlightPanel.setVisible(false);
                     frame.add(displayUserPanel);
                     displayUserPanel.setVisible(true);
                     BTNgroup.clearSelection();
-
+                    
+                    
+                    str += "--------------- User's Information --------------\n";
                     for (int i = 0; i < list.getFlight(chosenFlightIndex).getUserCount(); i++) {
-                        str += list.getFlight(chosenFlightIndex).getUser(i).displayInfo() + "\n";
+                        str += list.getFlight(chosenFlightIndex).getUser(i).displayInfo() + "        " + "Price: "+ list.getFlight(chosenFlightIndex).getPrice(i) + " (RM)\n\n";
                     }
                     UserInfo.setText(str);
+                    BTNgroup2.clearSelection();
 
                 } else {
                     JOptionPane.showMessageDialog(chooseFlightPanel, "No flight data to choose from", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (Exception exc2) {
+            }
+             catch(NullPointerException exc5){
+                JOptionPane.showMessageDialog(chooseFlightPanel, "No users at this flight", "Error",
+                JOptionPane.ERROR_MESSAGE);
+             }
+             catch (Exception exc2) {
                 JOptionPane.showMessageDialog(chooseFlightPanel, "You must choose a flight", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }

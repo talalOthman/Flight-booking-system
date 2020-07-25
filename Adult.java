@@ -1,4 +1,4 @@
-public class Adult extends Users {
+public class Adult extends Users implements Discountable {
 
     public Adult(String name, int passportNum, int age){
         super(name, passportNum, age);
@@ -7,9 +7,15 @@ public class Adult extends Users {
     public String displayInfo(){
         String str = "";
 
-        str += name + "    " + age + "\n";
+        str += "Name:         " + name + "\n";
+        str += "Passport:    " + passportNum + "\n";
+        str += "User's Age: " + age;
 
         return str;
+    }
+
+    public double discPrice(){
+        return SeniorDISC;
     }
 
 

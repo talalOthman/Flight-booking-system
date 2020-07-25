@@ -1,4 +1,4 @@
-public class Kid extends Users{
+public class Kid extends Users implements Discountable{
 
     private String parentName;
 
@@ -18,10 +18,17 @@ public class Kid extends Users{
     public String displayInfo(){
         String str = "";
 
-        str += name + "    " + age + "    " + parentName + "\n";
+        str += "Name:         " + name + "\n";
+        str += "Parent:        " + parentName + "\n";
+        str += "Passport:    " + passportNum + "\n";
+        str += "User's Age: " + age;
 
 
         return str;
+    }
+
+    public double discPrice(){
+        return KidDISC;
     }
 
     

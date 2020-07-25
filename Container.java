@@ -17,7 +17,7 @@ public class Container {
     }
 
     public String displayInfo(){
-        String str = "";
+        String str = "   ------------- Flight Information -------------\n";
         
         for(int i=0; i<count; i++){
         str += "Fly from: "+ list[i].ticket.getFromDestination();

@@ -26,5 +26,13 @@ public abstract class Users {
         this.passportNum = newPassportNum;
     }
 
+    public int getAge(){
+        return age;
+    }
+
     public abstract String displayInfo();
+
+    public abstract double discPrice();
+
+
 }
