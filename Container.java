@@ -1,6 +1,6 @@
 public class Container {
-    Flight list [];
-    int count;
+    private Flight list [];
+    private int count;
 
     Container(){
         this.list = new Flight[10];

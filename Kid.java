@@ -1,4 +1,4 @@
-public class Kid extends Users implements Discountable{
+public class Kid extends Users{
 
     private String parentName;
 

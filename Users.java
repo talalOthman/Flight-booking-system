@@ -1,4 +1,4 @@
-public abstract class Users {
+public abstract class Users implements Discountable {
     protected String name;
     protected int passportNum, age;
 

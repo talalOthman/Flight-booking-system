@@ -9,62 +9,62 @@ import java.util.*;
 public class Main implements ActionListener {
 
     // The main frame
-    JFrame frame;
+    private JFrame frame;
 
     // All the pages
-    static JPanel menuPanel, addFlightPanel, addUserPanel, displayFlightPanel, displayUserPanel, chooseFlightPanel,
+    private JPanel menuPanel, addFlightPanel, addUserPanel, displayFlightPanel, displayUserPanel, chooseFlightPanel,
             parentNamePanel, chooseUserFlightPanel;
-    static int flightCount = 0;
+    private int flightCount = 0;
 
     // add flight page components
-    JLabel fromL, toL, priceL, priceIndicator, addFlightTitle;
-    JTextField fromtxt, totxt, pricetxt;
-    JButton submitFlightBTN;
-    Flight flightList[];
+    private JLabel fromL, toL, priceL, addFlightTitle;
+    private JTextField fromtxt, totxt, pricetxt;
+    private JButton submitFlightBTN;
+    private Flight flightList[];
 
     // mainPanel components
-    JLabel title;
-    JButton addFlightBTN, addUserBTN, displayFlightsBTN, displayUsersBTN, exitBTN;
+    private JLabel title;
+    private JButton addFlightBTN, addUserBTN, displayFlightsBTN, displayUsersBTN, exitBTN;
 
     // add user page components
-    JLabel userNameL, passportNumL, parentNameL, ageL, addUserTitle;
-    JTextField userNametxt, passportNumtxt, agetxt;
-    JButton backToMenuBTN, submitUserBTN;
-    Users usersList[];
-    String name;
-    int age, passportNum;
+    private JLabel userNameL, passportNumL, parentNameL, ageL, addUserTitle;
+    private JTextField userNametxt, passportNumtxt, agetxt;
+    private JButton backToMenuBTN, submitUserBTN;
+    private Users usersList[];
+    private String name;
+    private int age, passportNum;
 
     // display flight page components
-    JLabel numOfFlightsL;
-    JTextPane FlightInfo;
-    String str = "";
-    Container list;
-    JLabel emptyL;
+    private JLabel numOfFlightsL;
+    private JTextPane FlightInfo;
+    private String str = "";
+    private Container list;
+    private JLabel emptyL;
 
     // choose flight page components
-    JLabel chooseFlightTitle;
-    ArrayList<JRadioButton> radioList;
-    ButtonGroup BTNgroup;
-    JButton proceedBTN;
-    Flight chosenFlight;
-    int chosenFlightIndex;
+    private JLabel chooseFlightTitle;
+    private ArrayList<JRadioButton> radioList;
+    private ButtonGroup BTNgroup;
+    private JButton proceedBTN;
+    private Flight chosenFlight;
+    private int chosenFlightIndex;
 
     // parent name page components
-    JLabel parentNameTitle;
-    JTextField parentNametxt;
-    JButton submitKidBTN;
-    String parentName;
+    private JLabel parentNameTitle;
+    private JTextField parentNametxt;
+    private JButton submitKidBTN;
+    private String parentName;
 
     // choose user flight page components
-    JButton proceedToUserBTN;
-    JLabel chooseUserFlightTitle;
-    ArrayList<JRadioButton> radioList2;
-    ButtonGroup BTNgroup2;
+    private JButton proceedToUserBTN;
+    private JLabel chooseUserFlightTitle;
+    private ArrayList<JRadioButton> radioList2;
+    private ButtonGroup BTNgroup2;
 
     // display users panel
-    JTextPane UserInfo;
+    private JTextPane UserInfo;
 
-    GridBagConstraints gbc;
+    private GridBagConstraints gbc;
 
     public Main() {
         setup();
